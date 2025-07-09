@@ -19,6 +19,7 @@ set(IDL_FILES
     IWzCanvas.idl
     IWzSound.idl
     IWzShape2D.idl
+    IWzConvex2D.idl
     IWzVector2D.idl
     IWzGr2D.idl
 )

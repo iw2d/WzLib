@@ -11,6 +11,7 @@
 #import "./IWzCanvas.tlb" no_namespace, exclude("tagRECT", "IWzArchive", "IWzSerialize", "IWzProperty"), rename("DrawText", "DrawTextA")
 #import "./IWzSound.tlb" no_namespace, exclude("IWzArchive", "IWzSerialize")
 #import "./IWzShape2D.tlb" no_namespace, exclude("IWzArchive", "IWzSerialize")
+#import "./IWzConvex2D.tlb" no_namespace, exclude("IWzArchive", "IWzSerialize", "IWzShape2D")
 #import "./IWzVector2D.tlb" no_namespace, exclude("IWzArchive", "IWzSerialize", "IWzShape2D")
 #import "./IWzGr2D.tlb" no_namespace, exclude("tagRECT", "IWzArchive", "IWzSerialize", "IWzProperty", "IWzRawCanvasAllocator", "IWzRawCanvas", "IWzFont", "IWzCanvas", "CANVAS_ALPHATYPE", "CANVAS_LEVELMAP", "CANVAS_PIXFORMAT", "CANVAS_DITHERTYPE", "IWzShape2D", "IWzVector2D")
 
