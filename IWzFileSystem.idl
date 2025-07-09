@@ -1,0 +1,17 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+    import "IWzWritableNameSpace.idl";
+
+    [
+        object,
+        uuid(352D8655-51E4-4668-8CE4-0866E2B6A5B5)
+    ]
+    interface IWzFileSystem : IWzWritableNameSpace {
+        HRESULT Init([in] BSTR sPath);
+    };
+};

@@ -1,0 +1,100 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+    import "IWzCanvas.idl";
+    import "IWzVector2D.idl";
+
+    typedef enum LAYER_BLENDTYPE {
+        LB_NORMAL    = 0x0,
+        LB_ADD       = 0x1,
+        LB_INVERSE   = 0x2,
+        LB_ISOLATED  = 0x4
+    } LAYER_BLENDTYPE;
+
+    typedef enum GR2D_ANITYPE {
+        GA_NORMAL  = 0x0,
+        GA_STOP    = 0x0,
+        GA_FIRST   = 0x10,
+        GA_REPEAT  = 0x20,
+        GA_WAIT    = 0x100
+    } GR2D_ANITYPE;
+
+    [
+        object,
+        uuid(6DC8C7CE-8E81-4420-B4F6-4B60B7D5FCDF)
+    ]
+    interface IWzGr2DLayer : IWzVector2D {
+        [propget] HRESULT z([out, retval] INT*);
+        [propput] HRESULT z([in] INT);
+        [propget] HRESULT width([out, retval] INT*);
+        [propput] HRESULT width([in] INT);
+        [propget] HRESULT height([out, retval] INT*);
+        [propput] HRESULT height([in] INT);
+        [propget] HRESULT lt([out, retval] IWzVector2D**);
+        [propget] HRESULT rb([out, retval] IWzVector2D**);
+        HRESULT InterLockedOffset([in] INT xlt, [in] INT ylt, [in] INT xrb, [in] INT yrb);
+        [propget] HRESULT flip([out, retval] INT*);
+        [propput] HRESULT flip([in] INT);
+        [propget] HRESULT color([out, retval] UINT*);
+        [propput] HRESULT color([in] UINT);
+        [propget] HRESULT alpha([out, retval] IWzVector2D**);
+        [propget] HRESULT redTone([out, retval] IWzVector2D**);
+        [propget] HRESULT greenBlueTone([out, retval] IWzVector2D**);
+        [propget] HRESULT blend([out, retval] LAYER_BLENDTYPE*);
+        [propput] HRESULT blend([in] LAYER_BLENDTYPE);
+        [propget] HRESULT overlay([out, retval] VARIANT*);
+        [propput] HRESULT overlay([in] VARIANT);
+        HRESULT canvas([in, optional] VARIANT vIndex, [out, retval] IWzCanvas**);
+        HRESULT InsertCanvas([in] IWzCanvas* pCanvas, [in, optional] VARIANT vDelay, [in, optional] VARIANT vAlpha0, [in, optional] VARIANT vAlpha1, [in, optional] VARIANT vZoom0, [in, optional] VARIANT vZoom1, [out, retval] VARIANT*);
+        HRESULT RemoveCanvas([in, optional] VARIANT vIndex, [out, retval] IWzCanvas**);
+        HRESULT ShiftCanvas([in, optional] VARIANT vValue);
+        HRESULT Animate([in] GR2D_ANITYPE nType, [in, optional] VARIANT vDelayRate, [in, optional] VARIANT vRepeat);
+        [propget] HRESULT animationState([out, retval] INT*);
+        [propget] HRESULT visible([out, retval] INT*);
+        [propput] HRESULT visible([in] INT);
+    };
+
+    [
+        object,
+        uuid(E576EA33-D465-4F08-AAB1-E78DF73EE6D9)
+    ]
+    interface IWzGr2D : IUnknown {
+        HRESULT Initialize([in] UINT uWidth, [in] UINT uHeight, [in, optional] VARIANT vHwnd, [in, optional] VARIANT vBPP, [in, optional] VARIANT vRefreshRate);
+        HRESULT Uninitialize();
+        [propget] HRESULT nextRenderTime([out, retval] INT*);
+        HRESULT UpdateCurrentTime([in] INT tTime);
+        HRESULT RenderFrame();
+        HRESULT SetFrameSkip();
+        HRESULT ToggleFpsPanel();
+        HRESULT DisableFpsPanel();
+        [propget] HRESULT width([out, retval] UINT*);
+        [propget] HRESULT height([out, retval] UINT*);
+        HRESULT screenResolution([in] UINT uWidth, [in] UINT uHeight);
+        [propget] HRESULT bpp([out, retval] UINT*);
+        [propget] HRESULT refreshRate([out, retval] UINT*);
+        [propget] HRESULT fps100([out, retval] UINT*);
+        [propget] HRESULT currentTime([out, retval] INT*);
+        [propget] HRESULT fullScreen([out, retval] INT*);
+        [propput] HRESULT fullScreen([in] INT);
+        [propget] HRESULT backColor([out, retval] UINT*);
+        [propput] HRESULT backColor([in] UINT);
+        [propget] HRESULT redTone([out, retval] IWzVector2D**);
+        [propget] HRESULT greenBlueTone([out, retval] IWzVector2D**);
+        [propget] HRESULT center([out, retval] IWzVector2D**);
+        HRESULT GetSnapshot([in] VARIANT pvBuffer, [in] UINT uBufferSize, [in] INT x, [in] INT y);
+        HRESULT CreateLayer([in] INT nLeft, [in] INT nTop, [in] UINT uWidth, [in] UINT uHeight, [in] INT nZ, [in, optional] VARIANT vCanvas, [in, optional] VARIANT dwFilter, [out, retval] IWzGr2DLayer**);
+        HRESULT AdjustCenter([in] INT nAdjustCenterX, [in] INT nAdjustCenterY);
+        HRESULT TakeScreenShot([in] BSTR sFileName, [in] INT nFileFormat);
+        HRESULT SetVideoMode([in] INT bMode);
+        HRESULT SetVideoPath([in] BSTR sPath, [in] INT, [in] INT);
+        HRESULT PlayVideo();
+        HRESULT PauseVideo([in] INT);
+        HRESULT StopVideo();
+        [propget] HRESULT videoStatus([out, retval] INT*);
+        [propput] HRESULT videoVolume([in] INT);
+    };
+};

@@ -1,0 +1,18 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+    import "IWzArchive.idl";
+
+    [
+        object,
+        uuid(01110BC6-D843-4FF1-918C-9CF64632FB15)
+    ]
+    interface IWzSerialize : IUnknown {
+        [propget] HRESULT persistentUOL([out, retval] BSTR*);
+        HRESULT Serialize([in] IWzArchive* pArchive);
+    };
+};

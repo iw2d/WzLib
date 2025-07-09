@@ -1,0 +1,19 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+    import "IWzNameSpace.idl";
+
+    [
+        object,
+        uuid(EE7659A2-23CD-4E44-86E5-D82A680E83F7)
+    ]
+    interface IWzWritableNameSpace : IWzNameSpace {
+        HRESULT CreateChildNameSpace([in] BSTR sName, [out, retval] IWzNameSpace**);
+        HRESULT AddObject([in] BSTR sName, [in] VARIANT vObj, [out] VARIANT*);
+        HRESULT Unlink([in] BSTR sName);
+    };
+};

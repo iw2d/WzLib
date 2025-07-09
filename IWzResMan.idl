@@ -1,0 +1,36 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+    import "IWzArchive.idl";
+
+    typedef enum RESMAN_PARAM {
+        RC_AUTO_SERIALIZE = 0x1,
+        RC_AUTO_SERIALIZE_NO_CACHE = 0x2,
+        RC_NO_AUTO_SERIALIZE = 0x4,
+        RC_DEFAULT_AUTO_SERIALIZE = 0x0,
+        RC_AUTO_SERIALIZE_MASK = 0x7,
+        RC_AUTO_REPARSE = 0x10,
+        RC_NO_AUTO_REPARSE = 0x20,
+        RC_DEFAULT_AUTO_REPARSE = 0x0,
+        RC_AUTO_REPARSE_MASK = 0x30
+    } RESMAN_PARAM;
+
+    [
+        object,
+        uuid(57DFE40B-3E20-4DBC-97E8-805A50F381BF)
+    ]
+    interface IWzResMan : IUnknown {
+        [propget] HRESULT rootNameSpace([out, retval] IUnknown**);
+        [propput] HRESULT rootNameSpace([in] IUnknown*);
+        HRESULT SetResManParam([in] RESMAN_PARAM nParam, [in] INT nRetainTime, [in] INT nNameSpaceCacheTime);
+        HRESULT CreateObject([in] BSTR sUOL, [out, retval] IUnknown**);
+        HRESULT GetObject([in] BSTR sUOL, [in, optional] VARIANT vParam, [in, optional] VARIANT vAux, [out, retval] VARIANT*);
+        HRESULT SerializeObject([in] IWzArchive* pArchive, [in, optional] VARIANT vDispObject, [out, retval] IUnknown**);
+        HRESULT FlushCachedObjects([in] INT nUsedBefore);
+        HRESULT OverrideObject([in] BSTR, [in] BSTR);
+    };
+};

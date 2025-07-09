@@ -1,0 +1,47 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+    import "IWzSerialize.idl";
+
+    interface IWzSound;
+
+    [
+        object,
+        uuid(D9730BA4-23F5-4C2D-95D4-0E7D3DF3765D)
+    ]
+    interface IWzSoundState : IUnknown {
+        [propget] HRESULT parentSound([out, retval] IWzSound**);
+        [propget] HRESULT playing([out, retval] INT*);
+        [propput] HRESULT playing([in] INT);
+        [propget] HRESULT chain([out, retval] VARIANT*);
+        [propput] HRESULT chain([in] VARIANT);
+        [propget] HRESULT chainValue([out, retval] INT*);
+        [propput] HRESULT chainValue([in] INT);
+        [propget] HRESULT volume([out, retval] INT*);
+        [propput] HRESULT volume([in] INT);
+        HRESULT MoveVolume([in] INT nDiff, [in] INT nDelay);
+    };
+
+    [
+        object,
+        uuid(1C923939-1338-4F8B-92CF-38935CEE1FEF)
+    ]
+    interface IWzSound : IWzSerialize {
+        HRESULT GlobalInit([in, optional] VARIANT vHwnd, [in, optional] VARIANT nChannels, [in, optional] VARIANT nSampleRate, [in, optional] VARIANT nBitsPerSample);
+        HRESULT GlobalClose();
+        HRESULT GlobalSetBuffer([in] UINT uBufferSize, [in] UINT uMinStream);
+        [propget] HRESULT globalVolume([out, retval] INT*);
+        [propput] HRESULT globalVolume([in] INT);
+        [propget] HRESULT allSoundStates([out, retval] IEnumVARIANT**);
+        [propget] HRESULT globalFocus([out, retval] INT*);
+        [propput] HRESULT globalFocus([in] INT);
+        HRESULT Play([in, optional] VARIANT nRepeat, [in, optional] VARIANT vRet, [out, retval] IWzSoundState**);
+        [propget] HRESULT length([out, retval] INT*);
+        [propget] HRESULT type([out, retval] BSTR*);
+        HRESULT GetSourceBuffer([out] BYTE** pSource, [out, retval] UINT*);
+    };
+};

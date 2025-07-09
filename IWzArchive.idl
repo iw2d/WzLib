@@ -1,0 +1,23 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+
+    [
+        object,
+        uuid(3C39B9AA-18CC-408C-8716-C4FB2117266E)
+    ]
+    interface IWzArchive : IUnknown {
+        [propget] HRESULT loading([out, retval] INT*);
+        HRESULT Read([out] BYTE* pv, [in] UINT cb, [out] UINT* pcbRead);
+        HRESULT Write([in] BYTE* pBuffer, [in] UINT cb, [out] UINT* pcbWritten);
+        [propget] HRESULT absoluteUOL([out, retval] BSTR*);
+        [propput] HRESULT absoluteUOL([in] BSTR);
+        [propget] HRESULT position([out, retval] UINT*);
+        [propget] HRESULT context([out, retval] VARIANT*);
+        [propput] HRESULT context([in] VARIANT);
+    };
+};

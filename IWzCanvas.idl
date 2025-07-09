@@ -1,0 +1,127 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+    import "IWzSerialize.idl";
+    import "IWzProperty.idl";
+
+    typedef enum CANVAS_ALPHATYPE {
+        CA_OVERWRITE      = 0xFF,
+        CA_REMOVEALPHA    = 0xFE
+    } CANVAS_ALPHATYPE;
+
+    typedef enum CANVAS_LEVELMAP {
+        CL_ALL16         = 0x1,
+        CL_ALL32         = 0x2,
+        CL_ALL56         = 0x201,
+        CL_USE32OVER1    = 0x10002,
+        CL_USE32OVER2    = 0x20002,
+        CL_USE56OVER1    = 0x10201,
+        CL_USE56OVER2    = 0x20201
+    } CANVAS_LEVELMAP;
+
+    typedef enum CANVAS_PIXFORMAT {
+        CP_UNKNOWN       = 0x0,
+        CP_A4R4G4B4      = 0x1,
+        CP_A8R8G8B8      = 0x2,
+        CP_R5G6B5        = 0x201,
+        CP_DXT3          = 0x402
+    } CANVAS_PIXFORMAT;
+
+    typedef enum CANVAS_DITHERTYPE {
+        CD_NONE          = 0x0,
+        CD_FS0           = 0x1,
+        CD_FS1           = 0x2,
+        CD_FS            = 0x3,
+        CD_FD0           = 0x11,
+        CD_FD1           = 0x12,
+        CD_FD            = 0x13
+    } CANVAS_DITHERTYPE;
+
+    interface IWzCanvas;
+
+    [
+        object,
+        uuid(58003396-B7C8-4EF4-A863-7622B90B956C)
+    ]
+    interface IWzRawCanvasAllocator : IUnknown {
+        HRESULT AllocCanvas([in] IWzCanvas* pCanvas, [in] CANVAS_PIXFORMAT nPixFormat, [in] INT nMagLevel);
+        HRESULT ConvertIfNotAvailable([in] IWzCanvas* pCanvas, [out] INT* pnNewPixFormat);
+    };
+
+    [
+        object,
+        uuid(312126F0-C399-4111-8EAB-0F96A30B6B7C)
+    ]
+    interface IWzRawCanvas : IUnknown {
+        [propget] HRESULT pixelFormat([out, retval] CANVAS_PIXFORMAT*);
+        [propget] HRESULT magLevel([out, retval] INT*);
+        [propget] HRESULT width([out, retval] UINT*);
+        [propget] HRESULT height([out, retval] UINT*);
+        HRESULT _LockAddress([out] INT* pnPitch, [out, retval] VARIANT*);
+        HRESULT _UnlockAddress([in] RECT* prc);
+        HRESULT SetTexture([in] UINT* pTexture);
+        HRESULT GetTextureSize([out, retval] RECT* prc);
+    };
+
+    [
+        object,
+        uuid(2BEF046D-CCD6-445A-88C4-929FC35D30AC)
+    ]
+    interface IWzFont : IUnknown {
+        HRESULT Create([in] BSTR sName, [in] UINT uHeight, [in] UINT uColor, [in, optional] VARIANT sStyle);
+        [propget] HRESULT color([out, retval] INT*);
+        [propget] HRESULT height([out, retval] INT*);
+        [propget] HRESULT fullHeight([out, retval] INT*);
+        HRESULT CalcTextWidth([in] BSTR sText, [in, optional] VARIANT vTabOrg, [out, retval] UINT*);
+        HRESULT CalcLongestText([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT*);
+        HRESULT CalcLongestTextForGlobal([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT*);
+        HRESULT CalcLongestTextForGlobalEx([in] BSTR sText, [in] INT nWidth, [out] INT* pnPosAdj, [in, optional] VARIANT vTabOrg, [out, retval] INT*);
+        HRESULT CalcLineCountForGlobal([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT*);
+        HRESULT DrawText([in] INT nLeft, [in] INT nTop, [in] BSTR sText, [in] IWzCanvas* pCanvas, [in, optional] VARIANT vAlpha, [in, optional] VARIANT vTabOrg, [out, retval] UINT*);
+    };
+
+    [
+        object,
+        uuid(7600DC6C-9328-4BFF-9624-5B0F5C01179E)
+    ]
+    interface IWzCanvas : IWzSerialize {
+        [propget] HRESULT defaultDither([out, retval] CANVAS_DITHERTYPE*);
+        [propput] HRESULT defaultDither([in] CANVAS_DITHERTYPE);
+        [propget] HRESULT defaultLevelMap([out, retval] CANVAS_LEVELMAP*);
+        [propput] HRESULT defaultLevelMap([in] CANVAS_LEVELMAP);
+        [propget] HRESULT defaultAllocator([out, retval] IWzRawCanvasAllocator**);
+        [propput] HRESULT defaultAllocator([in] IWzRawCanvasAllocator*);
+        HRESULT Create([in] UINT uWidth, [in] UINT uHeight, [in, optional] VARIANT nMagLevel, [in, optional] VARIANT nPixFormat);
+        HRESULT AddRawCanvas([in] INT x, [in] INT y, [in] IWzRawCanvas* pRawCanvas);
+        [propget] HRESULT rawCanvas([in] INT x, [in] INT y, [out, retval] IWzRawCanvas**);
+        [propget] HRESULT tileWidth([out, retval] UINT*);
+        [propget] HRESULT tileHeight([out, retval] UINT*);
+        [propget] HRESULT width([out, retval] UINT*);
+        [propput] HRESULT width([in] UINT);
+        [propget] HRESULT height([out, retval] UINT*);
+        [propput] HRESULT height([in] UINT);
+        [propget] HRESULT pixelFormat([out, retval] CANVAS_PIXFORMAT*);
+        [propput] HRESULT pixelFormat([in] CANVAS_PIXFORMAT);
+        [propget] HRESULT magLevel([out, retval] INT*);
+        [propput] HRESULT magLevel([in] INT);
+        HRESULT GetSnapshotU([out] UINT* puWidth, [out] UINT* puHeight, [out] UINT* puTileWidth, [out] UINT* puTileHeight, [out] CANVAS_PIXFORMAT* pFormat, [out] INT* pnMagLevel);
+        HRESULT GetSnapshot([out] INT* pnWidth, [out] INT* pnHeight, [out] INT* pnTileWidth, [out] INT* pnTileHeight, [out] CANVAS_PIXFORMAT* pFormat, [out] INT* pnMagLevel);
+        [propget] HRESULT property([out, retval] IWzProperty**);
+        [propget] HRESULT cx([out, retval] INT*);
+        [propput] HRESULT cx([in] INT);
+        [propget] HRESULT cy([out, retval] INT*);
+        [propput] HRESULT cy([in] INT);
+        HRESULT SetClipRect([in] INT nLeft, [in] INT nTop, [in] INT nWidth, [in] INT nHeight, [in, optional] VARIANT bTemp, [out, retval] VARIANT*);
+        HRESULT Copy([in] INT nDstLeft, [in] INT nDstTop, [in] IWzCanvas* pSource, [in, optional] VARIANT nAlpha);
+        HRESULT CopyEx([in] INT nDstLeft, [in] INT nDstTop, [in] IWzCanvas* pSource, [in] CANVAS_ALPHATYPE nAlpha, [in] INT nWidth, [in] INT nHeight, [in] INT nSrcLeft, [in] INT nSrcTop, [in] INT nSrcWidth, [in] INT nSrcHeight, [in, optional] VARIANT pAdjust);
+        [propget] HRESULT pixel([in] INT nX, [in] INT nY, [out, retval] UINT*);
+        HRESULT DrawRectangle([in] INT nLeft, [in] INT nTop, [in] UINT uWidth, [in] UINT uHeight, [in] UINT uColor);
+        HRESULT DrawLine([in] INT x1, [in] INT y1, [in] INT x2, [in] INT y2, [in] UINT uColor, [in, optional] VARIANT nWidth);
+        HRESULT DrawPolygon();
+        HRESULT DrawText([in] INT nLeft, [in] INT nTop, [in] BSTR sText, [in] IWzFont* pFont, [in, optional] VARIANT vAlpha, [in, optional] VARIANT vTabOrg, [out, retval] UINT*);
+    };
+};

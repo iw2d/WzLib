@@ -1,0 +1,24 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+    import "IWzSerialize.idl";
+
+    [
+        object,
+        uuid(F945BF59-D1EC-45E8-8BD9-3DD11AC1A48A)
+    ]
+    interface IWzUOL : IWzSerialize {
+        HRESULT Init([in] BSTR sUOL, [in, optional] VARIANT vCurrentDirectory);
+        [propget] HRESULT UOL([out, retval] BSTR*);
+        [propput] HRESULT UOL([in] BSTR);
+        [propget] HRESULT filePath([out, retval] BSTR*);
+        [propget] HRESULT className([out, retval] BSTR*);
+        [propget] HRESULT localUOL([out, retval] BSTR*);
+        [propget] HRESULT currentDirectory([out, retval] BSTR*);
+        [propput] HRESULT currentDirectory([in] BSTR);
+    };
+};

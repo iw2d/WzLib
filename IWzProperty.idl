@@ -1,0 +1,23 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+    import "IWzSerialize.idl";
+
+    [
+        object,
+        uuid(986515D9-0A0B-4929-8B4F-718682177B92)
+    ]
+    interface IWzProperty : IWzSerialize {
+        [propget] HRESULT item([in] BSTR sPath, [out, retval] VARIANT*);
+        [propput] HRESULT item([in] BSTR sPath, [in] VARIANT pvValue);
+        [propget] HRESULT _NewEnum([out, retval] IUnknown**);
+        [propget] HRESULT count([out, retval] UINT*);
+        HRESULT Add([in] BSTR sName, [in] VARIANT vValue, [in, optional] VARIANT bNoReplace);
+        HRESULT Remove([in] BSTR sName);
+        HRESULT Import([in] BSTR sText);
+    };
+};

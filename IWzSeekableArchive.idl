@@ -1,0 +1,22 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+    import "IWzArchive.idl";
+
+    [
+        object,
+        uuid(35C1F133-7F61-496E-878F-9A1758AFA9EA)
+    ]
+    interface IWzSeekableArchive : IWzArchive {
+        [propput] HRESULT position([in] UINT);
+        [propget] HRESULT length([out, retval] UINT*);
+        [propput] HRESULT length([in] UINT);
+        [propget] HRESULT address([out, retval] VARIANT*);
+        HRESULT Rewind();
+        HRESULT ReadLock([in] BSTR sRelUOL, [in] UINT uSize, [out, retval] IWzSeekableArchive** ppArchive);
+    };
+};
