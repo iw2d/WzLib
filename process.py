@@ -72,6 +72,11 @@ if __name__ == "__main__":
         includes.append("#include <comdef.h>")
         tlh_content = tlh_content.replace(includes[-1], "\n".join(includes))
 
+        # more replacements
+        tlh_content = tlh_content.replace("raw_GetObjectA", "raw_GetObject")
+        tlh_content = tlh_content.replace("raw_DrawTextA", "raw_DrawText")
+        tlh_content = tlh_content.replace("raw_screenResolution", "put_screenResolution")
+
         # write to header file
         output_path = os.path.join(dist_path, interface_name + ".h")
         with open(output_path, "w") as f:
