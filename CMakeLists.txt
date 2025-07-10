@@ -21,6 +21,7 @@ set(IDL_FILES
     IWzShape2D.idl
     IWzConvex2D.idl
     IWzVector2D.idl
+    IWzGr2DLayer.idl
     IWzGr2D.idl
 )
 

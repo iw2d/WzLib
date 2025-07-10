@@ -1,0 +1,60 @@
+[
+    uuid(D15C6042-5770-4007-8608-EBF3A1ED8083),
+    version(1.0)
+]
+library WzLib
+{
+    importlib("stdole2.tlb");
+    import "IWzCanvas.idl";
+    import "IWzVector2D.idl";
+
+    typedef enum LAYER_BLENDTYPE {
+        LB_NORMAL    = 0x0,
+        LB_ADD       = 0x1,
+        LB_INVERSE   = 0x2,
+        LB_ISOLATED  = 0x4
+    } LAYER_BLENDTYPE;
+
+    typedef enum GR2D_ANITYPE {
+        GA_NORMAL  = 0x0,
+        GA_STOP    = 0x0,
+        GA_FIRST   = 0x10,
+        GA_REPEAT  = 0x20,
+        GA_WAIT    = 0x100
+    } GR2D_ANITYPE;
+
+    [
+        object,
+        uuid(6DC8C7CE-8E81-4420-B4F6-4B60B7D5FCDF)
+    ]
+    interface IWzGr2DLayer : IWzVector2D {
+        [propget] HRESULT z([out, retval] INT*);
+        [propput] HRESULT z([in] INT);
+        [propget] HRESULT width([out, retval] INT*);
+        [propput] HRESULT width([in] INT);
+        [propget] HRESULT height([out, retval] INT*);
+        [propput] HRESULT height([in] INT);
+        [propget] HRESULT lt([out, retval] IWzVector2D**);
+        [propget] HRESULT rb([out, retval] IWzVector2D**);
+        HRESULT InterLockedOffset([in] INT xlt, [in] INT ylt, [in] INT xrb, [in] INT yrb);
+        [propget] HRESULT flip([out, retval] INT*);
+        [propput] HRESULT flip([in] INT);
+        [propget] HRESULT color([out, retval] UINT*);
+        [propput] HRESULT color([in] UINT);
+        [propget] HRESULT alpha([out, retval] IWzVector2D**);
+        [propget] HRESULT redTone([out, retval] IWzVector2D**);
+        [propget] HRESULT greenBlueTone([out, retval] IWzVector2D**);
+        [propget] HRESULT blend([out, retval] LAYER_BLENDTYPE*);
+        [propput] HRESULT blend([in] LAYER_BLENDTYPE);
+        [propget] HRESULT overlay([out, retval] VARIANT*);
+        [propput] HRESULT overlay([in] VARIANT);
+        HRESULT canvas([in, optional] VARIANT vIndex, [out, retval] IWzCanvas**);
+        HRESULT InsertCanvas([in] IWzCanvas* pCanvas, [in, optional] VARIANT vDelay, [in, optional] VARIANT vAlpha0, [in, optional] VARIANT vAlpha1, [in, optional] VARIANT vZoom0, [in, optional] VARIANT vZoom1, [out, retval] VARIANT*);
+        HRESULT RemoveCanvas([in, optional] VARIANT vIndex, [out, retval] IWzCanvas**);
+        HRESULT ShiftCanvas([in, optional] VARIANT vValue);
+        HRESULT Animate([in] GR2D_ANITYPE nType, [in, optional] VARIANT vDelayRate, [in, optional] VARIANT vRepeat);
+        [propget] HRESULT animationState([out, retval] INT*);
+        [propget] HRESULT visible([out, retval] INT*);
+        [propput] HRESULT visible([in] INT);
+    };
+};
