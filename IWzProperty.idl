@@ -12,10 +12,10 @@ library WzLib
         uuid(986515D9-0A0B-4929-8B4F-718682177B92)
     ]
     interface IWzProperty : IWzSerialize {
-        [propget] HRESULT item([in] BSTR sPath, [out, retval] VARIANT*);
-        [propput] HRESULT item([in] BSTR sPath, [in] VARIANT pvValue);
-        [propget] HRESULT _NewEnum([out, retval] IUnknown**);
-        [propget] HRESULT count([out, retval] UINT*);
+        [propget] HRESULT item([in] BSTR sPath, [out, retval] VARIANT* pvValue);
+        [propput] HRESULT item([in] BSTR sPath, [in] VARIANT vValue);
+        [propget] HRESULT _NewEnum([out, retval] IUnknown** pVal);
+        [propget] HRESULT count([out, retval] UINT* pVal);
         HRESULT Add([in] BSTR sName, [in] VARIANT vValue, [in, optional] VARIANT bNoReplace);
         HRESULT Remove([in] BSTR sName);
         HRESULT Import([in] BSTR sText);

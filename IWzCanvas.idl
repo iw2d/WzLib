@@ -57,11 +57,11 @@ library WzLib
         uuid(312126F0-C399-4111-8EAB-0F96A30B6B7C)
     ]
     interface IWzRawCanvas : IUnknown {
-        [propget] HRESULT pixelFormat([out, retval] CANVAS_PIXFORMAT*);
-        [propget] HRESULT magLevel([out, retval] INT*);
-        [propget] HRESULT width([out, retval] UINT*);
-        [propget] HRESULT height([out, retval] UINT*);
-        HRESULT _LockAddress([out] INT* pnPitch, [out, retval] VARIANT*);
+        [propget] HRESULT pixelFormat([out, retval] CANVAS_PIXFORMAT* pnFormat);
+        [propget] HRESULT magLevel([out, retval] INT* pnMagLevel);
+        [propget] HRESULT width([out, retval] UINT* puWidth);
+        [propget] HRESULT height([out, retval] UINT* puHeight);
+        HRESULT _LockAddress([out] INT* pnPitch, [out, retval] VARIANT* pvAddress);
         HRESULT _UnlockAddress([in] RECT* prc);
         HRESULT SetTexture([in] UINT* pTexture);
         HRESULT GetTextureSize([out, retval] RECT* prc);
@@ -73,15 +73,15 @@ library WzLib
     ]
     interface IWzFont : IUnknown {
         HRESULT Create([in] BSTR sName, [in] UINT uHeight, [in] UINT uColor, [in, optional] VARIANT sStyle);
-        [propget] HRESULT color([out, retval] INT*);
-        [propget] HRESULT height([out, retval] INT*);
-        [propget] HRESULT fullHeight([out, retval] INT*);
-        HRESULT CalcTextWidth([in] BSTR sText, [in, optional] VARIANT vTabOrg, [out, retval] UINT*);
-        HRESULT CalcLongestText([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT*);
-        HRESULT CalcLongestTextForGlobal([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT*);
-        HRESULT CalcLongestTextForGlobalEx([in] BSTR sText, [in] INT nWidth, [out] INT* pnPosAdj, [in, optional] VARIANT vTabOrg, [out, retval] INT*);
-        HRESULT CalcLineCountForGlobal([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT*);
-        HRESULT DrawText([in] INT nLeft, [in] INT nTop, [in] BSTR sText, [in] IWzCanvas* pCanvas, [in, optional] VARIANT vAlpha, [in, optional] VARIANT vTabOrg, [out, retval] UINT*);
+        [propget] HRESULT color([out, retval] INT* pnColor);
+        [propget] HRESULT height([out, retval] INT* pnHeight);
+        [propget] HRESULT fullHeight([out, retval] INT* pnFullHeight);
+        HRESULT CalcTextWidth([in] BSTR sText, [in, optional] VARIANT vTabOrg, [out, retval] UINT* puWidth);
+        HRESULT CalcLongestText([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT* pnIndex);
+        HRESULT CalcLongestTextForGlobal([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT* pnIndex);
+        HRESULT CalcLongestTextForGlobalEx([in] BSTR sText, [in] INT nWidth, [out] INT* pnPosAdj, [in, optional] VARIANT vTabOrg, [out, retval] INT* pnIndex);
+        HRESULT CalcLineCountForGlobal([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT* pnLineCount);
+        HRESULT DrawText([in] INT nLeft, [in] INT nTop, [in] BSTR sText, [in] IWzCanvas* pCanvas, [in, optional] VARIANT vAlpha, [in, optional] VARIANT vTabOrg, [out, retval] UINT* puHeight);
     };
 
     [
@@ -89,39 +89,39 @@ library WzLib
         uuid(7600DC6C-9328-4BFF-9624-5B0F5C01179E)
     ]
     interface IWzCanvas : IWzSerialize {
-        [propget] HRESULT defaultDither([out, retval] CANVAS_DITHERTYPE*);
-        [propput] HRESULT defaultDither([in] CANVAS_DITHERTYPE);
-        [propget] HRESULT defaultLevelMap([out, retval] CANVAS_LEVELMAP*);
-        [propput] HRESULT defaultLevelMap([in] CANVAS_LEVELMAP);
-        [propget] HRESULT defaultAllocator([out, retval] IWzRawCanvasAllocator**);
-        [propput] HRESULT defaultAllocator([in] IWzRawCanvasAllocator*);
-        HRESULT Create([in] UINT uWidth, [in] UINT uHeight, [in, optional] VARIANT nMagLevel, [in, optional] VARIANT nPixFormat);
+        [propget] HRESULT defaultDither([out, retval] CANVAS_DITHERTYPE* pnDefaultDither);
+        [propput] HRESULT defaultDither([in] CANVAS_DITHERTYPE nDefaultDither);
+        [propget] HRESULT defaultLevelMap([out, retval] CANVAS_LEVELMAP* pnDefaultLevelMap);
+        [propput] HRESULT defaultLevelMap([in] CANVAS_LEVELMAP nDefaultLevelMap);
+        [propget] HRESULT defaultAllocator([out, retval] IWzRawCanvasAllocator** ppAllocator);
+        [propput] HRESULT defaultAllocator([in] IWzRawCanvasAllocator* pAllocator);
+        HRESULT Create([in] UINT uWidth, [in] UINT uHeight, [in, optional] VARIANT vMagLevel, [in, optional] VARIANT vPixFormat);
         HRESULT AddRawCanvas([in] INT x, [in] INT y, [in] IWzRawCanvas* pRawCanvas);
-        [propget] HRESULT rawCanvas([in] INT x, [in] INT y, [out, retval] IWzRawCanvas**);
-        [propget] HRESULT tileWidth([out, retval] UINT*);
-        [propget] HRESULT tileHeight([out, retval] UINT*);
-        [propget] HRESULT width([out, retval] UINT*);
-        [propput] HRESULT width([in] UINT);
-        [propget] HRESULT height([out, retval] UINT*);
-        [propput] HRESULT height([in] UINT);
-        [propget] HRESULT pixelFormat([out, retval] CANVAS_PIXFORMAT*);
-        [propput] HRESULT pixelFormat([in] CANVAS_PIXFORMAT);
-        [propget] HRESULT magLevel([out, retval] INT*);
-        [propput] HRESULT magLevel([in] INT);
+        [propget] HRESULT rawCanvas([in] INT x, [in] INT y, [out, retval] IWzRawCanvas** ppRawCanvas);
+        [propget] HRESULT tileWidth([out, retval] UINT* puWidth);
+        [propget] HRESULT tileHeight([out, retval] UINT*puHeight);
+        [propget] HRESULT width([out, retval] UINT* puWidth);
+        [propput] HRESULT width([in] UINT uWidth);
+        [propget] HRESULT height([out, retval] UINT* puHeight);
+        [propput] HRESULT height([in] UINT uHeight);
+        [propget] HRESULT pixelFormat([out, retval] CANVAS_PIXFORMAT* pnFormat);
+        [propput] HRESULT pixelFormat([in] CANVAS_PIXFORMAT nFormat);
+        [propget] HRESULT magLevel([out, retval] INT* pnMagLevel);
+        [propput] HRESULT magLevel([in] INT nMagLevel);
         HRESULT GetSnapshotU([out] UINT* puWidth, [out] UINT* puHeight, [out] UINT* puTileWidth, [out] UINT* puTileHeight, [out] CANVAS_PIXFORMAT* pFormat, [out] INT* pnMagLevel);
         HRESULT GetSnapshot([out] INT* pnWidth, [out] INT* pnHeight, [out] INT* pnTileWidth, [out] INT* pnTileHeight, [out] CANVAS_PIXFORMAT* pFormat, [out] INT* pnMagLevel);
-        [propget] HRESULT property([out, retval] IWzProperty**);
-        [propget] HRESULT cx([out, retval] INT*);
-        [propput] HRESULT cx([in] INT);
-        [propget] HRESULT cy([out, retval] INT*);
-        [propput] HRESULT cy([in] INT);
-        HRESULT SetClipRect([in] INT nLeft, [in] INT nTop, [in] INT nWidth, [in] INT nHeight, [in, optional] VARIANT bTemp, [out, retval] VARIANT*);
+        [propget] HRESULT property([out, retval] IWzProperty** ppProperty);
+        [propget] HRESULT cx([out, retval] INT* pnX);
+        [propput] HRESULT cx([in] INT nX);
+        [propget] HRESULT cy([out, retval] INT* pnY);
+        [propput] HRESULT cy([in] INT nY);
+        HRESULT SetClipRect([in] INT nLeft, [in] INT nTop, [in] INT nWidth, [in] INT nHeight, [in, optional] VARIANT bTemp, [out, retval] VARIANT* pvToken);
         HRESULT Copy([in] INT nDstLeft, [in] INT nDstTop, [in] IWzCanvas* pSource, [in, optional] VARIANT nAlpha);
         HRESULT CopyEx([in] INT nDstLeft, [in] INT nDstTop, [in] IWzCanvas* pSource, [in] CANVAS_ALPHATYPE nAlpha, [in] INT nWidth, [in] INT nHeight, [in] INT nSrcLeft, [in] INT nSrcTop, [in] INT nSrcWidth, [in] INT nSrcHeight, [in, optional] VARIANT pAdjust);
-        [propget] HRESULT pixel([in] INT nX, [in] INT nY, [out, retval] UINT*);
+        [propget] HRESULT pixel([in] INT nX, [in] INT nY, [out, retval] UINT* puColor);
         HRESULT DrawRectangle([in] INT nLeft, [in] INT nTop, [in] UINT uWidth, [in] UINT uHeight, [in] UINT uColor);
         HRESULT DrawLine([in] INT x1, [in] INT y1, [in] INT x2, [in] INT y2, [in] UINT uColor, [in, optional] VARIANT nWidth);
         HRESULT DrawPolygon();
-        HRESULT DrawText([in] INT nLeft, [in] INT nTop, [in] BSTR sText, [in] IWzFont* pFont, [in, optional] VARIANT vAlpha, [in, optional] VARIANT vTabOrg, [out, retval] UINT*);
+        HRESULT DrawText([in] INT nLeft, [in] INT nTop, [in] BSTR sText, [in] IWzFont* pFont, [in, optional] VARIANT vAlpha, [in, optional] VARIANT vTabOrg, [out, retval] UINT* puHeight);
     };
 };

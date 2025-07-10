@@ -12,7 +12,7 @@ library WzLib
         uuid(01110BC6-D843-4FF1-918C-9CF64632FB15)
     ]
     interface IWzSerialize : IUnknown {
-        [propget] HRESULT persistentUOL([out, retval] BSTR*);
+        [propget] HRESULT persistentUOL([out, retval] BSTR* pVal);
         HRESULT Serialize([in] IWzArchive* pArchive);
     };
 };

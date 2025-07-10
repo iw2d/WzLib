@@ -11,12 +11,12 @@ library WzLib
         uuid(A0B5164F-F89B-41B8-8264-15371FD02B4C)
     ]
     interface IWzNameSpaceProperty : IUnknown {
-        [propget] HRESULT item([in, optional] VARIANT vAux, [out, retval] VARIANT*);
-        [propget] HRESULT name([out, retval] BSTR*);
-        [propget] HRESULT path([out, retval] BSTR*);
-        [propget] HRESULT size([out, retval] VARIANT*);
-        [propget] HRESULT checksum([out, retval] INT*);
-        [propget] HRESULT property([in] BSTR sPropName, [out, retval] VARIANT*);
+        [propget] HRESULT item([in, optional] VARIANT vAux, [out, retval] VARIANT* pvObj);
+        [propget] HRESULT name([out, retval] BSTR* psVal);
+        [propget] HRESULT path([out, retval] BSTR* psVal);
+        [propget] HRESULT size([out, retval] VARIANT* pvVal);
+        [propget] HRESULT checksum([out, retval] INT* pnVal);
+        [propget] HRESULT property([in] BSTR sPropName, [out, retval] VARIANT* pvVal);
     };
 
     [
@@ -24,12 +24,12 @@ library WzLib
         uuid(2AEEEB36-A4E1-4E2B-8F6F-2E7BDEC5C53D)
     ]
     interface IWzNameSpace : IUnknown {
-        [propget] HRESULT item([in] BSTR sPath, [out, retval] VARIANT*);
-        [propget] HRESULT property([in] BSTR sPath, [in, optional] VARIANT vpPathUsed, [out, retval] IWzNameSpaceProperty**);
-        [propget] HRESULT _NewEnum([out, retval] IUnknown**);
+        [propget] HRESULT item([in] BSTR sPath, [out, retval] VARIANT* pvObj);
+        [propget] HRESULT property([in] BSTR sPath, [in, optional] VARIANT vpPathUsed, [out, retval] IWzNameSpaceProperty** ppVal);
+        [propget] HRESULT _NewEnum([out, retval] IUnknown** pVal);
         HRESULT Mount([in] BSTR sPath, [in] IWzNameSpace* pDown, [in] INT nPriority);
         HRESULT Unmount([in] BSTR sPath, [in] VARIANT vDown);
         HRESULT _OnMountEvent([in] IWzNameSpace* pUp, [in] IWzNameSpace* pRoot, [in] BSTR sLocation, [in] INT nState);
-        HRESULT _OnGetLocalObject([in] INT nIndex, [in] BSTR sPath, [in, out] INT* pnPathUsed, [out, retval] VARIANT*);
+        HRESULT _OnGetLocalObject([in] INT nIndex, [in] BSTR sPath, [in, out] INT* pnPathUsed, [out, retval] VARIANT* pvRet);
     };
 };

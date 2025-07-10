@@ -12,22 +12,22 @@ library WzLib
         uuid(F28BD1ED-3DEB-4F92-9EEC-10EF5A1C3FB4)
     ]
     interface IWzShape2D : IWzSerialize {
-        [propget] HRESULT item([in, optional] VARIANT nIndex, [out, retval] VARIANT*);
-        [propget] HRESULT _NewEnum([out, retval] IUnknown**);
-        [propget] HRESULT count([out, retval] UINT*);
-        [propget] HRESULT x([out, retval] INT*);
-        [propput] HRESULT x([in] INT);
-        [propget] HRESULT y([out, retval] INT*);
-        [propput] HRESULT y([in] INT);
-        [propget] HRESULT x2([out, retval] INT*);
-        [propput] HRESULT x2([in] INT);
-        [propget] HRESULT y2([out, retval] INT*);
-        [propput] HRESULT y2([in] INT);
+        [propget] HRESULT item([in, optional] VARIANT vIndex, [out, retval] VARIANT* pvValue);
+        [propget] HRESULT _NewEnum([out, retval] IUnknown** pVal);
+        [propget] HRESULT count([out, retval] UINT* pVal);
+        [propget] HRESULT x([out, retval] INT* pVal);
+        [propput] HRESULT x([in] INT newVal);
+        [propget] HRESULT y([out, retval] INT* pVal);
+        [propput] HRESULT y([in] INT newVal);
+        [propget] HRESULT x2([out, retval] INT* pVal);
+        [propput] HRESULT x2([in] INT newVal);
+        [propget] HRESULT y2([out, retval] INT* pVal);
+        [propput] HRESULT y2([in] INT newVal);
         HRESULT Move([in] INT nX, [in] INT nY);
         HRESULT Offset([in] INT nDX, [in] INT nDY);
         HRESULT Scale([in] INT nXMul, [in] INT nXDiv, [in] INT nYMul, [in] INT nYDiv, [in] INT nXOrg, [in] INT nYOrg);
         HRESULT Insert([in] VARIANT vIndexOrShape, [in, optional] VARIANT vShape);
-        HRESULT Remove([in] VARIANT vIndex, [out, retval] VARIANT*);
+        HRESULT Remove([in] VARIANT vIndex, [out, retval] VARIANT* pvRemoved);
         HRESULT Init([in] INT nX, [in] INT nY);
     };
 };

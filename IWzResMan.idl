@@ -24,13 +24,13 @@ library WzLib
         uuid(57DFE40B-3E20-4DBC-97E8-805A50F381BF)
     ]
     interface IWzResMan : IUnknown {
-        [propget] HRESULT rootNameSpace([out, retval] IUnknown**);
-        [propput] HRESULT rootNameSpace([in] IUnknown*);
+        [propget] HRESULT rootNameSpace([out, retval] IUnknown** ppVal);
+        [propput] HRESULT rootNameSpace([in] IUnknown* pVal);
         HRESULT SetResManParam([in] RESMAN_PARAM nParam, [in] INT nRetainTime, [in] INT nNameSpaceCacheTime);
-        HRESULT CreateObject([in] BSTR sUOL, [out, retval] IUnknown**);
-        HRESULT GetObject([in] BSTR sUOL, [in, optional] VARIANT vParam, [in, optional] VARIANT vAux, [out, retval] VARIANT*);
-        HRESULT SerializeObject([in] IWzArchive* pArchive, [in, optional] VARIANT vDispObject, [out, retval] IUnknown**);
+        HRESULT CreateObject([in] BSTR sUOL, [out, retval] IUnknown** ppObj);
+        HRESULT GetObject([in] BSTR sUOL, [in, optional] VARIANT vParam, [in, optional] VARIANT vAux, [out, retval] VARIANT* pvObj);
+        HRESULT SerializeObject([in] IWzArchive* pArchive, [in, optional] VARIANT vDispObject, [out, retval] IUnknown** ppObj);
         HRESULT FlushCachedObjects([in] INT nUsedBefore);
-        HRESULT OverrideObject([in] BSTR, [in] BSTR);
+        HRESULT OverrideObject([in] BSTR sOrgUOL, [in] BSTR sNewUOL);
     };
 };

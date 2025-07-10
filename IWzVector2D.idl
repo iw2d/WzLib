@@ -12,27 +12,27 @@ library WzLib
         uuid(4CFB57C7-EAE3-40B3-AC98-4B2750E3642A)
     ]
     interface IWzVector2D : IWzShape2D {
-        [propget] HRESULT currentTime([out, retval] INT*);
-        [propput] HRESULT currentTime([in] INT);
-        [propget] HRESULT origin([out, retval] VARIANT*);
-        [propput] HRESULT origin([in] VARIANT);
-        [propget] HRESULT rx([out, retval] INT*);
-        [propput] HRESULT rx([in] INT);
-        [propget] HRESULT ry([out, retval] INT*);
-        [propput] HRESULT ry([in] INT);
-        [propget] HRESULT a([out, retval] DOUBLE*);
-        [propget] HRESULT ra([out, retval] DOUBLE*);
-        [propput] HRESULT ra([in] DOUBLE);
-        [propget] HRESULT flipX([out, retval] INT*);
-        [propput] HRESULT flipX([in] INT);
+        [propget] HRESULT currentTime([out, retval] INT* pnTime);
+        [propput] HRESULT currentTime([in] INT nTime);
+        [propget] HRESULT origin([out, retval] VARIANT* pvOrigin);
+        [propput] HRESULT origin([in] VARIANT vOrigin);
+        [propget] HRESULT rx([out, retval] INT* pVal);
+        [propput] HRESULT rx([in] INT newVal);
+        [propget] HRESULT ry([out, retval] INT* pVal);
+        [propput] HRESULT ry([in] INT newVal);
+        [propget] HRESULT a([out, retval] DOUBLE* pVal);
+        [propget] HRESULT ra([out, retval] DOUBLE* pVal);
+        [propput] HRESULT ra([in] DOUBLE newVal);
+        [propget] HRESULT flipX([out, retval] INT* pVal);
+        [propput] HRESULT flipX([in] INT newVal);
         HRESULT _GetSnapshot([out] INT* px, [out] INT* py, [out] INT* prx, [out] INT* pry, [out] INT* pxOrg, [out] INT* pyOrg, [out] DOUBLE* pa, [out] DOUBLE* paOrg, [in, optional] VARIANT vTime);
         HRESULT RelMove([in] INT nX, [in] INT nY, [in, optional] VARIANT nTime, [in, optional] VARIANT nType);
         HRESULT RelOffset([in] INT nDX, [in] INT nDY, [in, optional] VARIANT nTime, [in, optional] VARIANT nType);
         HRESULT Ratio([in] IWzVector2D* pOrigin, [in] INT nOriginWidth, [in] INT nOriginHeight, [in] INT nScaleWidth, [in] INT nScaleHeight);
         HRESULT WrapClip([in] VARIANT pOrigin, [in] INT nWrapLeft, [in] INT nWrapTop, [in] UINT uWrapWidth, [in] UINT uWrapHeight, [in, optional] VARIANT bClip);
         HRESULT Rotate([in] DOUBLE dAngleAmount, [in, optional] VARIANT nTime);
-        [propget] HRESULT looseLevel([out, retval] UINT*);
-        [propput] HRESULT looseLevel([in] UINT);
+        [propget] HRESULT looseLevel([out, retval] UINT* puLevel);
+        [propput] HRESULT looseLevel([in] UINT uLevel);
         HRESULT Fly([in] VARIANT* aVar, [in] INT nArgs);
     };
 };

@@ -12,8 +12,8 @@ library WzLib
         uuid(EE7659A2-23CD-4E44-86E5-D82A680E83F7)
     ]
     interface IWzWritableNameSpace : IWzNameSpace {
-        HRESULT CreateChildNameSpace([in] BSTR sName, [out, retval] IWzNameSpace**);
-        HRESULT AddObject([in] BSTR sName, [in] VARIANT vObj, [out] VARIANT*);
+        HRESULT CreateChildNameSpace([in] BSTR sName, [out, retval] IWzNameSpace** ppNameSpace);
+        HRESULT AddObject([in] BSTR sName, [in] VARIANT vObj, [out] VARIANT* pvObj);
         HRESULT Unlink([in] BSTR sName);
     };
 };

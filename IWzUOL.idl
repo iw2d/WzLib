@@ -13,12 +13,12 @@ library WzLib
     ]
     interface IWzUOL : IWzSerialize {
         HRESULT Init([in] BSTR sUOL, [in, optional] VARIANT vCurrentDirectory);
-        [propget] HRESULT UOL([out, retval] BSTR*);
-        [propput] HRESULT UOL([in] BSTR);
-        [propget] HRESULT filePath([out, retval] BSTR*);
-        [propget] HRESULT className([out, retval] BSTR*);
-        [propget] HRESULT localUOL([out, retval] BSTR*);
-        [propget] HRESULT currentDirectory([out, retval] BSTR*);
-        [propput] HRESULT currentDirectory([in] BSTR);
+        [propget] HRESULT UOL([out, retval] BSTR* pVal);
+        [propput] HRESULT UOL([in] BSTR sUOL);
+        [propget] HRESULT filePath([out, retval] BSTR* pVal);
+        [propget] HRESULT className([out, retval] BSTR* pVal);
+        [propget] HRESULT localUOL([out, retval] BSTR* pVal);
+        [propget] HRESULT currentDirectory([out, retval] BSTR* pVal);
+        [propput] HRESULT currentDirectory([in] BSTR newVal);
     };
 };

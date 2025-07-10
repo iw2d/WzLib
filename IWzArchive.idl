@@ -11,13 +11,13 @@ library WzLib
         uuid(3C39B9AA-18CC-408C-8716-C4FB2117266E)
     ]
     interface IWzArchive : IUnknown {
-        [propget] HRESULT loading([out, retval] INT*);
+        [propget] HRESULT loading([out, retval] INT* pbLoading);
         HRESULT Read([out] BYTE* pv, [in] UINT cb, [out] UINT* pcbRead);
         HRESULT Write([in] BYTE* pBuffer, [in] UINT cb, [out] UINT* pcbWritten);
-        [propget] HRESULT absoluteUOL([out, retval] BSTR*);
-        [propput] HRESULT absoluteUOL([in] BSTR);
-        [propget] HRESULT position([out, retval] UINT*);
-        [propget] HRESULT context([out, retval] VARIANT*);
-        [propput] HRESULT context([in] VARIANT);
+        [propget] HRESULT absoluteUOL([out, retval] BSTR* pVal);
+        [propput] HRESULT absoluteUOL([in] BSTR newVal);
+        [propget] HRESULT position([out, retval] UINT* puPos);
+        [propget] HRESULT context([out, retval] VARIANT* pvContext);
+        [propput] HRESULT context([in] VARIANT vContext);
     };
 };
