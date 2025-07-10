@@ -4,6 +4,7 @@ project(WzLib)
 set(CMAKE_CXX_STANDARD 17)
 
 
+# Generate TLB files
 set(IDL_DIR ${CMAKE_SOURCE_DIR})
 set(IDL_FILES
     IWzArchive.idl
@@ -43,8 +44,15 @@ endforeach()
 add_custom_target(IDL_ALL DEPENDS ${TLB_FILES})
 
 
+# Generate TLH files
 add_library(${PROJECT_NAME} SHARED
     main.cpp
 )
 add_dependencies(${PROJECT_NAME} IDL_ALL)
 
+
+# Process into header files
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND python ${CMAKE_SOURCE_DIR}/process.py ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.dir/${CMAKE_CFG_INTDIR} ${CMAKE_SOURCE_DIR}/dist
+)

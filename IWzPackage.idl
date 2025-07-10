@@ -5,8 +5,8 @@
 library WzLib
 {
     importlib("stdole2.tlb");
-    import "IWzSeekableArchive.idl";
     import "IWzNameSpace.idl";
+    import "IWzSeekableArchive.idl";
 
     [
         object,
