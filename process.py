@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
         # read and process TLH content
         file_path = os.path.join(build_path, file_name)
-        with open(file_path, "r") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             tlh_content = f.read()
         tlh_content = tlh_content[tlh_content.find("#pragma once"):]
         tlh_content = tlh_content.replace("      virtual", "    virtual")
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
         # append TLI content
         def replace_tli(match):
-            with open(match.group(1), "r") as f:
+            with open(match.group(1), "r", encoding="utf-8") as f:
                 tli_content = f.read()
             tli_content = tli_content[(tli_content.find("#pragma once") + len("#pragma once") + 1):]
             tli_content = COMMENT_PATTERN.sub("", tli_content)
@@ -79,5 +79,5 @@ if __name__ == "__main__":
 
         # write to header file
         output_path = os.path.join(dist_path, interface_name + ".h")
-        with open(output_path, "w") as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(tlh_content)
