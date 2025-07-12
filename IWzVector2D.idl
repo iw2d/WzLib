@@ -9,7 +9,7 @@ library WzLib
 
     [
         object,
-        uuid(4CFB57C7-EAE3-40B3-AC98-4B2750E3642A)
+        uuid(F28BD1ED-3DEB-4F92-9EEC-10EF5A1C3FB4)
     ]
     interface IWzVector2D : IWzShape2D {
         [propget] HRESULT currentTime([out, retval] INT* pnTime);
@@ -23,8 +23,6 @@ library WzLib
         [propget] HRESULT a([out, retval] DOUBLE* pVal);
         [propget] HRESULT ra([out, retval] DOUBLE* pVal);
         [propput] HRESULT ra([in] DOUBLE newVal);
-        [propget] HRESULT flipX([out, retval] INT* pVal);
-        [propput] HRESULT flipX([in] INT newVal);
         HRESULT _GetSnapshot([out] INT* px, [out] INT* py, [out] INT* prx, [out] INT* pry, [out] INT* pxOrg, [out] INT* pyOrg, [out] DOUBLE* pa, [out] DOUBLE* paOrg, [in, optional] VARIANT vTime);
         HRESULT RelMove([in] INT nX, [in] INT nY, [in, optional] VARIANT nTime, [in, optional] VARIANT nType);
         HRESULT RelOffset([in] INT nDX, [in] INT nDY, [in, optional] VARIANT nTime, [in, optional] VARIANT nType);

@@ -9,7 +9,7 @@ library WzLib
 
     [
         object,
-        uuid(F28BD1ED-3DEB-4F92-9EEC-10EF5A1C3FB4)
+        uuid(4CFB57C7-E3EA-B340-AC98-4B2750E3642A)
     ]
     interface IWzShape2D : IWzSerialize {
         [propget] HRESULT item([in, optional] VARIANT vIndex, [out, retval] VARIANT* pvValue);

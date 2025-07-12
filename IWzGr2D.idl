@@ -19,10 +19,8 @@ library WzLib
         HRESULT RenderFrame();
         HRESULT SetFrameSkip();
         HRESULT ToggleFpsPanel();
-        HRESULT DisableFpsPanel();
         [propget] HRESULT width([out, retval] UINT* puWidth);
         [propget] HRESULT height([out, retval] UINT* puHeight);
-        HRESULT screenResolution([in] UINT uWidth, [in] UINT uHeight);
         [propget] HRESULT bpp([out, retval] UINT* puBPP);
         [propget] HRESULT refreshRate([out, retval] UINT* puRefreshRate);
         [propget] HRESULT fps100([out, retval] UINT* puFps100);
@@ -36,14 +34,5 @@ library WzLib
         [propget] HRESULT center([out, retval] IWzVector2D** ppVector);
         HRESULT GetSnapshot([in] VARIANT pvBuffer, [in] UINT uBufferSize, [in] INT x, [in] INT y);
         HRESULT CreateLayer([in] INT nLeft, [in] INT nTop, [in] UINT uWidth, [in] UINT uHeight, [in] INT nZ, [in, optional] VARIANT vCanvas, [in, optional] VARIANT dwFilter, [out, retval] IWzGr2DLayer** ppLayer);
-        HRESULT AdjustCenter([in] INT nAdjustCenterX, [in] INT nAdjustCenterY);
-        HRESULT TakeScreenShot([in] BSTR sFileName, [in] INT nFileFormat);
-        HRESULT SetVideoMode([in] INT bMode);
-        HRESULT SetVideoPath([in] BSTR sPath, [in] INT unk1, [in] INT unk2);
-        HRESULT PlayVideo();
-        HRESULT PauseVideo([in] INT nPause);
-        HRESULT StopVideo();
-        [propget] HRESULT videoStatus([out, retval] INT* pnStatus);
-        [propput] HRESULT videoVolume([in] INT nVolume);
     };
 };
