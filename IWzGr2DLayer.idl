@@ -54,7 +54,5 @@ library WzLib
         HRESULT ShiftCanvas([in, optional] VARIANT vValue);
         HRESULT Animate([in] GR2D_ANITYPE nType, [in, optional] VARIANT vDelayRate, [in, optional] VARIANT vRepeat);
         [propget] HRESULT animationState([out, retval] INT* pnState);
-        [propget] HRESULT visible([out, retval] INT* pnVisible);
-        [propput] HRESULT visible([in] INT nVisible);
     };
 };
