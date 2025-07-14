@@ -77,6 +77,10 @@ if __name__ == "__main__":
         tlh_content = tlh_content.replace("raw_DrawTextA", "raw_DrawText")
         tlh_content = tlh_content.replace("raw_screenResolution", "put_screenResolution")
 
+        tlh_content = tlh_content.replace("_bstr_t", "Ztl_bstr_t")
+        tlh_content = tlh_content.replace("_variant_t", "Ztl_variant_t")
+        tlh_content = tlh_content.replace("vtMissing", "vtEmpty")
+
         # write to header file
         output_path = os.path.join(dist_path, interface_name + ".h")
         with open(output_path, "w", encoding="utf-8") as f:

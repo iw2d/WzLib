@@ -13,6 +13,6 @@ library WzLib
         uuid(E610818B-038D-4522-9232-30FCD5F4737C)
     ]
     interface IWzPackage : IWzNameSpace {
-        HRESULT Init([in] BSTR sKey, [in] BSTR sBaseUOL, [in] IWzSeekableArchive pArchive);
+        HRESULT Init([in] BSTR sKey, [in] IWzSeekableArchive pArchive);
     };
 };
