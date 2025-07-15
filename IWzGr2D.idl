@@ -33,6 +33,6 @@ library WzLib
         [propget] HRESULT greenBlueTone([out, retval] IWzVector2D** ppVector);
         [propget] HRESULT center([out, retval] IWzVector2D** ppVector);
         HRESULT GetSnapshot([in] VARIANT pvBuffer, [in] UINT uBufferSize, [in] INT x, [in] INT y);
-        HRESULT CreateLayer([in] INT nLeft, [in] INT nTop, [in] UINT uWidth, [in] UINT uHeight, [in] INT nZ, [in, optional] VARIANT vCanvas, [in, optional] VARIANT dwFilter, [out, retval] IWzGr2DLayer** ppLayer);
+        HRESULT CreateLayer([in] INT nLeft, [in] INT nTop, [in] UINT uWidth, [in] UINT uHeight, [in] INT nZ, [in, optional] VARIANT vCanvas, [out, retval] IWzGr2DLayer** ppLayer);
     };
 };
