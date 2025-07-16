@@ -9,8 +9,8 @@ library WzLib
     import "IWzProperty.idl";
 
     typedef enum CANVAS_ALPHATYPE {
-        CA_OVERWRITE      = 0xFF,
-        CA_REMOVEALPHA    = 0xFE
+        CA_OVERWRITE     = 0xFF,
+        CA_REMOVEALPHA   = 0xFE
     } CANVAS_ALPHATYPE;
 
     typedef enum CANVAS_LEVELMAP {

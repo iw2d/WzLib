@@ -13,8 +13,8 @@
 #import "./IWzShape2D.tlb" no_namespace, exclude("IWzArchive", "IWzSerialize")
 #import "./IWzConvex2D.tlb" no_namespace, exclude("IWzArchive", "IWzSerialize", "IWzShape2D")
 #import "./IWzVector2D.tlb" no_namespace, exclude("IWzArchive", "IWzSerialize", "IWzShape2D")
-#import "./IWzGr2DLayer.tlb" no_namespace, exclude("tagRECT", "IWzArchive", "IWzSerialize", "IWzProperty", "IWzRawCanvasAllocator", "IWzRawCanvas", "IWzFont", "IWzCanvas", "CANVAS_ALPHATYPE", "CANVAS_LEVELMAP", "CANVAS_PIXFORMAT", "CANVAS_DITHERTYPE", "IWzShape2D", "IWzVector2D")
-#import "./IWzGr2D.tlb" no_namespace, exclude("tagRECT", "IWzArchive", "IWzSerialize", "IWzProperty", "IWzRawCanvasAllocator", "IWzRawCanvas", "IWzFont", "IWzCanvas", "CANVAS_ALPHATYPE", "CANVAS_LEVELMAP", "CANVAS_PIXFORMAT", "CANVAS_DITHERTYPE", "IWzShape2D", "IWzVector2D", "IWzGr2DLayer", "LAYER_BLENDTYPE", "GR2D_ANITYPE")
+#import "./IWzGr2DLayer.tlb" no_namespace, exclude("tagRECT", "IWzArchive", "IWzSerialize", "IWzProperty", "IWzRawCanvasAllocator", "IWzRawCanvas", "IWzFont", "IWzCanvas", "CANVAS_ALPHATYPE", "CANVAS_LEVELMAP", "CANVAS_PIXFORMAT", "CANVAS_DITHERTYPE", "IWzShape2D", "IWzVector2D", "VECTOR2D_MOVE")
+#import "./IWzGr2D.tlb" no_namespace, exclude("tagRECT", "IWzArchive", "IWzSerialize", "IWzProperty", "IWzRawCanvasAllocator", "IWzRawCanvas", "IWzFont", "IWzCanvas", "CANVAS_ALPHATYPE", "CANVAS_LEVELMAP", "CANVAS_PIXFORMAT", "CANVAS_DITHERTYPE", "IWzShape2D", "IWzVector2D", "VECTOR2D_MOVE", "IWzGr2DLayer", "LAYER_BLENDTYPE", "GR2D_ANITYPE")
 
 
 extern "C" __declspec(dllexport) void GenerateImports() {

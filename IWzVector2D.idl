@@ -7,6 +7,10 @@ library WzLib
     importlib("stdole2.tlb");
     import "IWzShape2D.idl";
 
+    typedef enum VECTOR2D_MOVE {
+        VM_FOREVER = 0x10000000
+    } VECTOR2D_MOVE;
+
     [
         object,
         uuid(F28BD1ED-3DEB-4F92-9EEC-10EF5A1C3FB4)

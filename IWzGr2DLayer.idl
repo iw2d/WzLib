@@ -48,7 +48,7 @@ library WzLib
         [propput] HRESULT blend([in] LAYER_BLENDTYPE nblend);
         [propget] HRESULT overlay([out, retval] VARIANT* pvLayer);
         [propput] HRESULT overlay([in] VARIANT vLayer);
-        HRESULT canvas([in, optional] VARIANT vIndex, [out, retval] IWzCanvas** ppCanvas);
+        [propget] HRESULT canvas([in, optional] VARIANT vIndex, [out, retval] IWzCanvas** ppCanvas);
         HRESULT InsertCanvas([in] IWzCanvas* pCanvas, [in, optional] VARIANT vDelay, [in, optional] VARIANT vAlpha0, [in, optional] VARIANT vAlpha1, [in, optional] VARIANT vZoom0, [in, optional] VARIANT vZoom1, [out, retval] VARIANT* pvIndex);
         HRESULT RemoveCanvas([in, optional] VARIANT vIndex, [out, retval] IWzCanvas** ppCanvas);
         HRESULT ShiftCanvas([in, optional] VARIANT vValue);
