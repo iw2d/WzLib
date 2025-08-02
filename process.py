@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
         # append TLI content
         def replace_tli(match):
-            with open(match.group(1), "r") as f:
+            with open(match.group(1), "r", encoding="utf-8") as f:
                 tli_content = f.read()
             tli_content = tli_content[(tli_content.find("#pragma once") + len("#pragma once") + 1):]
             tli_content = COMMENT_PATTERN.sub("", tli_content)
@@ -69,15 +69,19 @@ if __name__ == "__main__":
             "#include \"" + name + ".h\""
             for name in IMPORT_MAP.get(interface_name, [])
         ]
-        includes.append("#include <comdef.h>")
-        tlh_content = tlh_content.replace(includes[-1], "\n".join(includes))
+        includes.append("#include \"zcomdef.h\"")
+        tlh_content = tlh_content.replace("#include <comdef.h>", "\n".join(includes))
 
         # more replacements
         tlh_content = tlh_content.replace("raw_GetObjectA", "raw_GetObject")
         tlh_content = tlh_content.replace("raw_DrawTextA", "raw_DrawText")
         tlh_content = tlh_content.replace("raw_screenResolution", "put_screenResolution")
 
+        tlh_content = tlh_content.replace("_bstr_t", "Ztl_bstr_t")
+        tlh_content = tlh_content.replace("_variant_t", "Ztl_variant_t")
+        tlh_content = tlh_content.replace("vtMissing", "vtEmpty")
+
         # write to header file
         output_path = os.path.join(dist_path, interface_name + ".h")
-        with open(output_path, "w") as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(tlh_content)
