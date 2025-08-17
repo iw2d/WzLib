@@ -9,7 +9,7 @@ inline BSTR ZComSysAllocString(const wchar_t* s) {
     if (s == nullptr) {
         return nullptr;
     }
-    uint32_t u = wcslen(s);
+    uint32_t u = static_cast<uint32_t>(wcslen(s));
     BSTR bstr = static_cast<wchar_t*>(CoTaskMemAlloc(sizeof(wchar_t) * (u + 1) + sizeof(uint32_t)));
     if (bstr) {
         *reinterpret_cast<uint32_t*>(bstr) = sizeof(wchar_t) * u;

@@ -39,14 +39,14 @@ add_custom_target(IDL_ALL DEPENDS ${TLB_FILES})
 
 
 # Generate TLH files
-add_library(WzLibInterface SHARED
+add_library(WzInterface STATIC
     generate.cpp
 )
-add_dependencies(WzLibInterface IDL_ALL)
+add_dependencies(WzInterface IDL_ALL)
 
 
 # Process into header files
 add_custom_command(
-    TARGET WzLibInterface POST_BUILD
-    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/process.py ${CMAKE_CURRENT_BINARY_DIR}/WzLibInterface.dir/${CMAKE_CFG_INTDIR} ${CMAKE_SOURCE_DIR}/include
+    TARGET WzInterface POST_BUILD
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/process.py ${CMAKE_CURRENT_BINARY_DIR}/WzInterface.dir/${CMAKE_CFG_INTDIR} ${CMAKE_SOURCE_DIR}/include
 )

@@ -44,7 +44,7 @@ if __name__ == "__main__":
         if ext != ".tlh":
             continue
 
-        print("Processing : " + interface_name)
+        # print("Processing : " + interface_name)
 
         # read and process TLH content
         file_path = os.path.join(build_path, file_name)
