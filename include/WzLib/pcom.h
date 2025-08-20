@@ -1,6 +1,23 @@
 #pragma once
 #include <windows.h>
-#include <zcomdef.h>
+#include "IWzArchive.h"
+#include "IWzSeekableArchive.h"
+#include "IWzSerialize.h"
+#include "IWzProperty.h"
+#include "IWzNameSpace.h"
+#include "IWzWritableNameSpace.h"
+#include "IWzPackage.h"
+#include "IWzFileSystem.h"
+#include "IWzResMan.h"
+#include "IWzUOL.h"
+#include "IWzCanvas.h"
+#include "IWzSound.h"
+#include "IWzShape2D.h"
+#include "IWzConvex2D.h"
+#include "IWzVector2D.h"
+#include "IWzGr2DLayer.h"
+#include "IWzGr2D.h"
+#include "zcomdef.h"
 
 inline FARPROC _g_apfnPCOMAPIs[5] = {};
 inline HMODULE _g_hPCOMModule = nullptr;
