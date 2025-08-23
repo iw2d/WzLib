@@ -31,20 +31,20 @@ IMPORT_MAP = {
 
 if __name__ == "__main__":
     build_path = sys.argv[1]
-    dist_path = sys.argv[2]
+    include_path = sys.argv[2]
 
     if not os.path.isdir(build_path):
         sys.exit(1)
 
-    if not os.path.isdir(dist_path):
-        os.mkdir(dist_path)
+    if not os.path.isdir(include_path):
+        os.mkdir(include_path)
 
     for file_name in os.listdir(build_path):
         interface_name, ext = os.path.splitext(file_name)
         if ext != ".tlh":
             continue
 
-        print("Processing : " + interface_name)
+        # print("Processing : " + interface_name)
 
         # read and process TLH content
         file_path = os.path.join(build_path, file_name)
@@ -69,8 +69,8 @@ if __name__ == "__main__":
             "#include \"" + name + ".h\""
             for name in IMPORT_MAP.get(interface_name, [])
         ]
-        includes.append("#include <comdef.h>")
-        tlh_content = tlh_content.replace(includes[-1], "\n".join(includes))
+        includes.append("#include \"zcomdef.h\"")
+        tlh_content = tlh_content.replace("#include <comdef.h>", "\n".join(includes))
 
         # more replacements
         tlh_content = tlh_content.replace("raw_GetObjectA", "raw_GetObject")
@@ -82,6 +82,6 @@ if __name__ == "__main__":
         tlh_content = tlh_content.replace("vtMissing", "vtEmpty")
 
         # write to header file
-        output_path = os.path.join(dist_path, interface_name + ".h")
+        output_path = os.path.join(include_path, interface_name + ".h")
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(tlh_content)

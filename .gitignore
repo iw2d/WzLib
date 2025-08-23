@@ -2,5 +2,5 @@
 .vs
 .vscode
 /build/
-/dist/
+/include/
 *.tlb

@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 # Generate TLB files
-set(IDL_DIR ${CMAKE_SOURCE_DIR})
+set(IDL_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(IDL_FILES
     IWzArchive.idl
     IWzSeekableArchive.idl
@@ -29,7 +29,7 @@ set(IDL_FILES
 set(TLB_FILES "")
 foreach(IDL_FILE IN LISTS IDL_FILES)
     get_filename_component(IDL_NAME ${IDL_FILE} NAME_WE)
-    set(TLB_FILE "${IDL_DIR}/${IDL_NAME}.tlb")
+    set(TLB_FILE "${CMAKE_CURRENT_BINARY_DIR}/${IDL_NAME}.tlb")
 
     add_custom_command(
         OUTPUT ${TLB_FILE}
@@ -45,14 +45,33 @@ add_custom_target(IDL_ALL DEPENDS ${TLB_FILES})
 
 
 # Generate TLH files
-add_library(${PROJECT_NAME} SHARED
-    main.cpp
+set(GENERATOR_NAME ${PROJECT_NAME}_TLH)
+add_library(${GENERATOR_NAME} STATIC
+    generate.cpp
 )
-add_dependencies(${PROJECT_NAME} IDL_ALL)
 
+add_dependencies(${GENERATOR_NAME} IDL_ALL)
+
+target_include_directories(${GENERATOR_NAME} PRIVATE
+    ${CMAKE_CURRENT_BINARY_DIR}
+)
 
 # Process into header files
 add_custom_command(
-    TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND python ${CMAKE_SOURCE_DIR}/process.py ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.dir/${CMAKE_CFG_INTDIR} ${CMAKE_SOURCE_DIR}/dist
+    TARGET ${GENERATOR_NAME} POST_BUILD
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/process.py ${CMAKE_CURRENT_BINARY_DIR}/${GENERATOR_NAME}.dir/${CMAKE_CFG_INTDIR} ${CMAKE_CURRENT_SOURCE_DIR}/include/WzLib
 )
+
+
+# Add library
+set(LIBRARY_NAME ${PROJECT_NAME})
+add_library(${LIBRARY_NAME} INTERFACE)
+
+add_dependencies(${LIBRARY_NAME} ${GENERATOR_NAME})
+
+target_include_directories(${LIBRARY_NAME} INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
+
+target_compile_features(${LIBRARY_NAME} INTERFACE cxx_std_17)
