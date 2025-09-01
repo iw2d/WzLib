@@ -1,7 +1,10 @@
 #pragma once
 #include <comdef.h>
-#include <cstdint>
 
+
+inline decltype(&CoTaskMemAlloc) ZtlTaskMemAlloc = reinterpret_cast<decltype(&CoTaskMemAlloc)>(GetProcAddress(GetModuleHandleA(nullptr), "ZtlTaskMemAllocImp"));
+inline decltype(&CoTaskMemRealloc) ZtlTaskMemRealloc = reinterpret_cast<decltype(&CoTaskMemRealloc)>(GetProcAddress(GetModuleHandleA(nullptr), "ZtlTaskMemReallocImp"));
+inline decltype(&CoTaskMemFree) ZtlTaskMemFree = reinterpret_cast<decltype(&CoTaskMemFree)>(GetProcAddress(GetModuleHandleA(nullptr), "ZtlTaskMemFreeImp"));
 
 namespace ZComAPI {
 
@@ -9,21 +12,21 @@ inline BSTR ZComSysAllocString(const wchar_t* s) {
     if (s == nullptr) {
         return nullptr;
     }
-    uint32_t u = static_cast<uint32_t>(wcslen(s));
-    BSTR bstr = static_cast<wchar_t*>(CoTaskMemAlloc(sizeof(wchar_t) * (u + 1) + sizeof(uint32_t)));
+    size_t u = static_cast<size_t>(wcslen(s));
+    BSTR bstr = static_cast<wchar_t*>(ZtlTaskMemAlloc(sizeof(wchar_t) * (u + 1) + sizeof(size_t)));
     if (bstr) {
-        *reinterpret_cast<uint32_t*>(bstr) = sizeof(wchar_t) * u;
-        bstr = reinterpret_cast<wchar_t*>(reinterpret_cast<uint32_t*>(bstr) + 1);
+        *reinterpret_cast<size_t*>(bstr) = sizeof(wchar_t) * u;
+        bstr = reinterpret_cast<wchar_t*>(reinterpret_cast<size_t*>(bstr) + 1);
         memcpy(bstr, s, sizeof(wchar_t) * (u + 1));
     }
     return bstr;
 }
 
-inline BSTR ZComSysAllocStringLen(const wchar_t* s, uint32_t u) {
-    BSTR bstr = static_cast<wchar_t*>(CoTaskMemAlloc(sizeof(wchar_t) * (u + 1) + sizeof(uint32_t)));
+inline BSTR ZComSysAllocStringLen(const wchar_t* s, size_t u) {
+    BSTR bstr = static_cast<wchar_t*>(ZtlTaskMemAlloc(sizeof(wchar_t) * (u + 1) + sizeof(size_t)));
     if (bstr) {
-        *reinterpret_cast<uint32_t*>(bstr) = sizeof(wchar_t) * u;
-        bstr = reinterpret_cast<wchar_t*>(reinterpret_cast<uint32_t*>(bstr) + 1);
+        *reinterpret_cast<size_t*>(bstr) = sizeof(wchar_t) * u;
+        bstr = reinterpret_cast<wchar_t*>(reinterpret_cast<size_t*>(bstr) + 1);
         if (s) {
             memcpy(bstr, s, sizeof(wchar_t) * u);
         }
@@ -32,11 +35,11 @@ inline BSTR ZComSysAllocStringLen(const wchar_t* s, uint32_t u) {
     return bstr;
 }
 
-inline BSTR ZComSysAllocStringByteLen(const char* s, uint32_t bn) {
-    BSTR bstr = static_cast<wchar_t*>(CoTaskMemAlloc(bn + sizeof(wchar_t) + sizeof(uint32_t)));
+inline BSTR ZComSysAllocStringByteLen(const char* s, size_t bn) {
+    BSTR bstr = static_cast<wchar_t*>(ZtlTaskMemAlloc(bn + sizeof(wchar_t) + sizeof(size_t)));
     if (bstr) {
-        *reinterpret_cast<uint32_t*>(bstr) = bn;
-        bstr = reinterpret_cast<wchar_t*>(reinterpret_cast<uint32_t*>(bstr) + 1);
+        *reinterpret_cast<size_t*>(bstr) = bn;
+        bstr = reinterpret_cast<wchar_t*>(reinterpret_cast<size_t*>(bstr) + 1);
         if (s) {
             memcpy(bstr, s, bn);
         }
@@ -47,22 +50,22 @@ inline BSTR ZComSysAllocStringByteLen(const char* s, uint32_t bn) {
 
 inline void ZComSysFreeString(BSTR bstr) {
     if (bstr) {
-        CoTaskMemFree(reinterpret_cast<uint32_t*>(bstr) - 1);
+        ZtlTaskMemFree(reinterpret_cast<size_t*>(bstr) - 1);
     }
 }
 
-inline uint32_t ZComSysStringLen(BSTR bstr) {
+inline size_t ZComSysStringLen(BSTR bstr) {
     if (!bstr) {
         return 0;
     }
-    return *(reinterpret_cast<uint32_t*>(bstr) - 1) / sizeof(wchar_t);
+    return *(reinterpret_cast<size_t*>(bstr) - 1) / sizeof(wchar_t);
 }
 
-inline uint32_t ZComSysStringByteLen(BSTR bstr) {
+inline size_t ZComSysStringByteLen(BSTR bstr) {
     if (!bstr) {
         return 0;
     }
-    return *(reinterpret_cast<uint32_t*>(bstr) - 1);
+    return *(reinterpret_cast<size_t*>(bstr) - 1);
 }
 
 inline void ZComVariantInit(VARIANT* pvarg) {
@@ -184,10 +187,10 @@ inline BSTR __stdcall ZtlConvertStringToBSTR(const char* pSrc) {
         return nullptr;
     }
     int n = MultiByteToWideChar(0, 0, pSrc, -1, nullptr, 0) - 1;
-    BSTR bstr = static_cast<wchar_t*>(CoTaskMemAlloc(sizeof(wchar_t) * (n + 1) + sizeof(uint32_t)));
+    BSTR bstr = static_cast<wchar_t*>(ZtlTaskMemAlloc(sizeof(wchar_t) * (n + 1) + sizeof(size_t)));
     if (bstr) {
-        *reinterpret_cast<uint32_t*>(bstr) = sizeof(wchar_t) * n;
-        bstr = reinterpret_cast<wchar_t*>(reinterpret_cast<uint32_t*>(bstr) + 1);
+        *reinterpret_cast<size_t*>(bstr) = sizeof(wchar_t) * n;
+        bstr = reinterpret_cast<wchar_t*>(reinterpret_cast<size_t*>(bstr) + 1);
         bstr[n] = 0;
         MultiByteToWideChar(0, 0, pSrc, -1, bstr, 0x3FFFFFFF);
     }
