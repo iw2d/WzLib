@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
         # read and process TLH content
         file_path = os.path.join(build_path, file_name)
-        with open(file_path, "r") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             tlh_content = f.read()
         tlh_content = tlh_content[tlh_content.find("#pragma once"):]
         tlh_content = tlh_content.replace("      virtual", "    virtual")
