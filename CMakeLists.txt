@@ -86,3 +86,4 @@ target_compile_features(${LIBRARY_NAME} INTERFACE cxx_std_17)
 # Compile Gr2D_DX8to9
 set(WZLIB_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/include" CACHE STRING "" FORCE)
 add_subdirectory(Gr2D_DX8to9)
+add_dependencies(Gr2D_DX8to9 ${GENERATOR_NAME})
