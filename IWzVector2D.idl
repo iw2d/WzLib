@@ -30,7 +30,7 @@ library WzLib
         [propget] HRESULT flipX([out, retval] INT* pVal);
         [propput] HRESULT flipX([in] INT newVal);
         HRESULT _GetSnapshot([out] INT* px, [out] INT* py, [out] INT* prx, [out] INT* pry, [out] INT* pxOrg, [out] INT* pyOrg, [out] DOUBLE* pa, [out] DOUBLE* paOrg, [in, optional] VARIANT vTime);
-        HRESULT RelMove([in] INT nX, [in] INT nY, [in, optional] VARIANT nTime, [in, optional] VARIANT nType);
+        HRESULT RelMove([in] INT nX, [in] INT nY, [in, optional] VARIANT nTime, [in, optional] VARIANT nType, [in, optional] VARIANT nBeginTime);
         HRESULT RelOffset([in] INT nDX, [in] INT nDY, [in, optional] VARIANT nTime, [in, optional] VARIANT nType);
         HRESULT Ratio([in] IWzVector2D* pOrigin, [in] INT nOriginWidth, [in] INT nOriginHeight, [in] INT nScaleWidth, [in] INT nScaleHeight);
         HRESULT WrapClip([in] VARIANT pOrigin, [in] INT nWrapLeft, [in] INT nWrapTop, [in] UINT uWrapWidth, [in] UINT uWrapHeight, [in, optional] VARIANT bClip);

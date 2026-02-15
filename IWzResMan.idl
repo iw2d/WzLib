@@ -31,6 +31,8 @@ library WzLib
         HRESULT GetObject([in] BSTR sUOL, [in, optional] VARIANT vParam, [in, optional] VARIANT vAux, [out, retval] VARIANT* pvObj);
         HRESULT SerializeObject([in] IWzArchive* pArchive, [in, optional] VARIANT vDispObject, [out, retval] IUnknown** ppObj);
         HRESULT FlushCachedObjects([in] INT nUsedBefore);
-        HRESULT OverrideObject([in] BSTR sOrgUOL, [in] BSTR sNewUOL);
+        HRESULT FlushCachedObjectsByUOL([in] BSTR sUOL);
+        HRESULT LogAllCashUOL();
+        HRESULT OverrideObjectsTW([in] IUnknown*);
     };
 };

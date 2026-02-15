@@ -15,7 +15,7 @@
 #import "IWzConvex2D.tlb" IMPORT_CONFIG, exclude("IWzArchive", "IWzSerialize", "IWzShape2D")
 #import "IWzVector2D.tlb" IMPORT_CONFIG, exclude("IWzArchive", "IWzSerialize", "IWzShape2D")
 #import "IWzGr2DLayer.tlb" IMPORT_CONFIG, exclude("tagRECT", "IWzArchive", "IWzSerialize", "IWzProperty", "IWzRawCanvasAllocator", "IWzRawCanvas", "IWzFont", "IWzCanvas", "CANVAS_ALPHATYPE", "CANVAS_LEVELMAP", "CANVAS_PIXFORMAT", "CANVAS_DITHERTYPE", "IWzShape2D", "IWzVector2D")
-#import "IWzGr2D.tlb" IMPORT_CONFIG, exclude("tagRECT", "IWzArchive", "IWzSerialize", "IWzProperty", "IWzRawCanvasAllocator", "IWzRawCanvas", "IWzFont", "IWzCanvas", "CANVAS_ALPHATYPE", "CANVAS_LEVELMAP", "CANVAS_PIXFORMAT", "CANVAS_DITHERTYPE", "IWzShape2D", "IWzVector2D", "IWzGr2DLayer", "LAYER_BLENDTYPE", "GR2D_ANITYPE")
+#import "IWzGr2D.tlb" IMPORT_CONFIG, exclude("tagPOINT", "tagRECT", "IWzArchive", "IWzSerialize", "IWzProperty", "IWzRawCanvasAllocator", "IWzRawCanvas", "IWzFont", "IWzCanvas", "CANVAS_ALPHATYPE", "CANVAS_LEVELMAP", "CANVAS_PIXFORMAT", "CANVAS_DITHERTYPE", "IWzShape2D", "IWzVector2D", "IWzGr2DLayer", "LAYER_BLENDTYPE", "GR2D_ANITYPE")
 
 
 extern "C" __declspec(dllexport) void GenerateImports() {

@@ -65,6 +65,7 @@ library WzLib
         HRESULT _UnlockAddress([in] RECT* prc);
         HRESULT SetTexture([in] UINT* pTexture);
         HRESULT GetTextureSize([out, retval] RECT* prc);
+        HRESULT AttachBitmapSource([in] INT nWidth, [in] INT nHeight, [in] BYTE* pBitmapSource, [in] INT nPow2Texture, [in] INT nPixelByte);
     };
 
     [
@@ -76,11 +77,9 @@ library WzLib
         [propget] HRESULT color([out, retval] INT* pnColor);
         [propget] HRESULT height([out, retval] INT* pnHeight);
         [propget] HRESULT fullHeight([out, retval] INT* pnFullHeight);
+        [propget] HRESULT fontName([out, retval] BSTR*);
         HRESULT CalcTextWidth([in] BSTR sText, [in, optional] VARIANT vTabOrg, [out, retval] UINT* puWidth);
         HRESULT CalcLongestText([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT* pnIndex);
-        HRESULT CalcLongestTextForGlobal([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT* pnIndex);
-        HRESULT CalcLongestTextForGlobalEx([in] BSTR sText, [in] INT nWidth, [out] INT* pnPosAdj, [in, optional] VARIANT vTabOrg, [out, retval] INT* pnIndex);
-        HRESULT CalcLineCountForGlobal([in] BSTR sText, [in] INT nWidth, [in, optional] VARIANT vTabOrg, [out, retval] INT* pnLineCount);
         HRESULT DrawText([in] INT nLeft, [in] INT nTop, [in] BSTR sText, [in] IWzCanvas* pCanvas, [in, optional] VARIANT vAlpha, [in, optional] VARIANT vTabOrg, [out, retval] UINT* puHeight);
     };
 
@@ -98,6 +97,8 @@ library WzLib
         HRESULT Create([in] UINT uWidth, [in] UINT uHeight, [in, optional] VARIANT vMagLevel, [in, optional] VARIANT vPixFormat);
         HRESULT AddRawCanvas([in] INT x, [in] INT y, [in] IWzRawCanvas* pRawCanvas);
         [propget] HRESULT rawCanvas([in] INT x, [in] INT y, [out, retval] IWzRawCanvas** ppRawCanvas);
+        [propget] HRESULT rawCanvasByIdx([in] INT nIdx, [out, retval] IWzRawCanvas** ppRawCanvas);
+        [propget] HRESULT rawCanvasCount([out, retval] UINT* puCount);
         [propget] HRESULT tileWidth([out, retval] UINT* puWidth);
         [propget] HRESULT tileHeight([out, retval] UINT*puHeight);
         [propget] HRESULT width([out, retval] UINT* puWidth);
@@ -118,10 +119,21 @@ library WzLib
         HRESULT SetClipRect([in] INT nLeft, [in] INT nTop, [in] INT nWidth, [in] INT nHeight, [in, optional] VARIANT bTemp, [out, retval] VARIANT* pvToken);
         HRESULT Copy([in] INT nDstLeft, [in] INT nDstTop, [in] IWzCanvas* pSource, [in, optional] VARIANT nAlpha);
         HRESULT CopyEx([in] INT nDstLeft, [in] INT nDstTop, [in] IWzCanvas* pSource, [in] CANVAS_ALPHATYPE nAlpha, [in] INT nWidth, [in] INT nHeight, [in] INT nSrcLeft, [in] INT nSrcTop, [in] INT nSrcWidth, [in] INT nSrcHeight, [in, optional] VARIANT pAdjust);
+        HRESULT SetRawCanvas([in] IWzCanvas* pSource);
         [propget] HRESULT pixel([in] INT nX, [in] INT nY, [out, retval] UINT* puColor);
         HRESULT DrawRectangle([in] INT nLeft, [in] INT nTop, [in] UINT uWidth, [in] UINT uHeight, [in] UINT uColor);
         HRESULT DrawLine([in] INT x1, [in] INT y1, [in] INT x2, [in] INT y2, [in] UINT uColor, [in, optional] VARIANT nWidth);
         HRESULT DrawPolygon();
+        HRESULT DrawHexagon([in] UINT uColor, [in] INT x1, [in] INT y1, [in] INT x2, [in] INT y2, [in] INT x3, [in] INT y3, [in] INT x4, [in] INT y4, [in] INT x5, [in] INT y5, [in] INT x6, [in] INT y6);
+        HRESULT DrawQuadrilateral([in] UINT uColor, [in] INT x1, [in] INT y1, [in] INT x2, [in] INT y2, [in] INT x3, [in] INT y3, [in] INT x4, [in] INT y4);
         HRESULT DrawText([in] INT nLeft, [in] INT nTop, [in] BSTR sText, [in] IWzFont* pFont, [in, optional] VARIANT vAlpha, [in, optional] VARIANT vTabOrg, [out, retval] UINT* puHeight);
+        HRESULT SetBlur([in] INT nXPos, [in] INT nYPos, [in] INT nHalfWidth, [in] INT nHalfHeight, [in] INT nDelay, [in] INT nDist);
+        [propget] HRESULT isblur([out, retval] INT* pbIsBlur);
+        [propget] HRESULT blurX([out, retval] INT* pnXPos);
+        [propget] HRESULT blurY([out, retval] INT* pnYPos);
+        [propget] HRESULT blurHalfWidth([out, retval] INT* pnHalfWidth);
+        [propget] HRESULT blurHalfHeight([out, retval] INT* pnHalfHeight);
+        [propget] HRESULT blurDelay([out, retval] INT* pnDelay);
+        [propget] HRESULT blurDist([out, retval] INT* pnDist);
     };
 };

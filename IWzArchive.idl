@@ -19,5 +19,6 @@ library WzLib
         [propget] HRESULT position([out, retval] UINT* puPos);
         [propget] HRESULT context([out, retval] VARIANT* pvContext);
         [propput] HRESULT context([in] VARIANT vContext);
+        [propget] HRESULT pack_ignore([out, retval] UINT* pbPackIgnore);
     };
 };

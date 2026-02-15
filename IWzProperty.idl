@@ -19,5 +19,9 @@ library WzLib
         HRESULT Add([in] BSTR sName, [in] VARIANT vValue, [in, optional] VARIANT bNoReplace);
         HRESULT Remove([in] BSTR sName);
         HRESULT Import([in] BSTR sText);
+        HRESULT _GetHeadPosition(UINT**);
+        HRESULT _GetAt(UINT*, VARIANT*);
+        HRESULT _GetName(UINT*, BSTR*);
+        HRESULT _GetNext(UINT**);
     };
 };
