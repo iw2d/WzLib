@@ -36,7 +36,7 @@ library WzLib
         [propput] HRESULT height([in] INT nHeight);
         [propget] HRESULT lt([out, retval] IWzVector2D** ppVector);
         [propget] HRESULT rb([out, retval] IWzVector2D** ppVector);
-        HRESULT InterLockedOffset([in] INT xlt, [in] INT ylt, [in] INT xrb, [in] INT yrb);
+        HRESULT InterlockedOffset([in] INT xlt, [in] INT ylt, [in] INT xrb, [in] INT yrb);
         [propget] HRESULT flip([out, retval] INT* pnFlip);
         [propput] HRESULT flip([in] INT nFlip);
         [propget] HRESULT color([out, retval] UINT* puColor);
@@ -45,7 +45,7 @@ library WzLib
         [propget] HRESULT redTone([out, retval] IWzVector2D** ppVector);
         [propget] HRESULT greenBlueTone([out, retval] IWzVector2D** ppVector);
         [propget] HRESULT blend([out, retval] LAYER_BLENDTYPE* pnBlend);
-        [propput] HRESULT blend([in] LAYER_BLENDTYPE nblend);
+        [propput] HRESULT blend([in] LAYER_BLENDTYPE nBlend);
         [propget] HRESULT overlay([out, retval] VARIANT* pvLayer);
         [propput] HRESULT overlay([in] VARIANT vLayer);
         [propget] HRESULT canvas([in, optional] VARIANT vIndex, [out, retval] IWzCanvas** ppCanvas);
